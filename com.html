@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>TIỆM TÁO TÀU</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Link CSS riêng của từng trang ở đây (Ví dụ: Com.css cho trang cơm) -->
+</head>
+<body>
+    <!-- HEADER CHUẨN (Không lặp lại) -->
+    <div class="header-top">
+        <div class="logo-circle">
+            <img src="logo.png" alt="Logo" class="main-logo">
+        </div>
+        <div>
+            <div class="btn-3d white" style="width: 250px;">TIỆM TÁO TÀU</div>
+            <div style="display:flex; gap:5px; margin-top:5px;">
+                <div style="border:1px solid #000; background:#fff; padding:2px; font-size:12px;">Logo ad | Sdt ad</div>
+                <div style="border:1px solid #000; background:#fff; padding:2px; font-size:12px;">Logo ad | Sdt ad</div>
+            </div>
+        </div>
+        <div style="margin-left:auto; display:flex; flex-direction:column; gap:5px;">
+            <div style="display:flex; gap:5px;">
+                <a href="login.html" class="btn-3d">Đăng Nhập</a>
+                <a href="register.html" class="btn-3d">Đăng ký</a>
+            </div>
+            <div style="display:flex; gap:5px;">
+                <button class="btn-3d">Đánh Giá Shop</button>
+                <button class="btn-3d">Trợ Giúp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENU CHUẨN (Đầy đủ nút cho mọi trang) -->
+    <nav style="background: var(--bg-dark); padding:10px; display:flex; justify-content:center; gap:10px; border-bottom:4px solid var(--border-dark);">
+        <a href="index.html" class="btn-3d white">Trang Chủ</a>
+        <a href="com.html" class="btn-3d white">CƠM</a>
+        <a href="donuoc.html" class="btn-3d white">Đồ Nước</a>
+        <a href="docan.html" class="btn-3d white">Đồ - Cân</a>
+        <a href="dochay.html" class="btn-3d white">Đồ Chay</a>
+        <a href="donuong.html" class="btn-3d white">Đồ Nướng</a>
+    </nav>
+
+    <!-- KHU VỰC SẢN PHẨM -->
+    <div class="product-section">
+        <div class="btn-3d white" style="margin-bottom:20px; min-width: 200px;">CƠM</div>
+        <div id="product-list" class="product-grid"></div>
+    </div>
+
+    <!-- MODAL THANH TOÁN CHUẨN -->
+    <div id="payment-modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); align-items:center; justify-content:center;">
+        <div class="payment-content" style="background:var(--bg-light); border:5px solid var(--border-dark); width:400px; padding:20px; text-align:center;">
+            <h2 class="btn-3d white" style="width:100%">THANH TOÁN</h2>
+            <input type="text" placeholder="Tên Sản Phẩm" class="pixel-input" style="width:100%; margin-bottom:10px;">
+            <input type="text" placeholder="Số điện thoại" class="pixel-input" style="width:100%; margin-bottom:10px;">
+            <textarea placeholder="Địa Chỉ" class="pixel-input" style="width:100%; height:60px; margin-bottom:10px;"></textarea>
+            <button onclick="alert('Đặt hàng thành công!')" class="btn-3d" style="width:100%">XÁC NHẬN</button>
+            <button onclick="document.getElementById('payment-modal').style.display='none'" style="margin-top:10px; color:red; cursor:pointer; border:none; background:none;">[Đóng]</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

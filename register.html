@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng Ký - TIỆM TÁO TÀU</title>
+    <style>
+        :root {
+            --bg-light: #ffffff;
+            --border-dark: #000000;
+            --primary-color: #70AD47;
+        }
+
+        body, html { margin: 0; padding: 0; height: 100vh; overflow: hidden; font-family: sans-serif; }
+
+        /* Container chính bao phủ toàn màn hình */
+        .auth-page { 
+            display: flex; 
+            height: 100vh; 
+            background: var(--bg-light); 
+            border: 1px solid var(--border-dark); 
+            box-sizing: border-box; 
+            position: relative; 
+        }
+
+        /* PHẦN ĐĂNG KÝ (BÊN TRÁI) - CHIẾM 50% */
+        .form-side { 
+            flex: 1; 
+            padding: 60px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 10;
+            border-right: 1px solid var(--border-dark);
+            background: white;
+            box-sizing: border-box;
+        }
+        
+        /* PHẦN ẢNH (BÊN PHẢI) - CHIẾM 50% */
+        .video-side { 
+            flex: 1; 
+            background: #000; 
+            position: relative;
+            overflow: hidden; /* Cắt bỏ phần ảnh dư thừa để tràn viền */
+        }
+
+        /* ẢNH CÔ GÁI LẤP ĐẦY 50% BÊN PHẢI */
+        .side-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Quan trọng: Giúp ảnh lấp đầy khung mà không bị méo */
+            display: block;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* CON THỎ CHẠY QUANH VIỀN 50% BÊN PHẢI */
+        .pixel-rabbit {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            z-index: 100;
+            font-size: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            animation: rabbitRunFull 15s linear infinite;
+        }
+
+        @keyframes rabbitRunFull {
+            0%   { top: 10px; left: 10px; transform: scaleX(1); }
+            25%  { top: 10px; left: calc(100% - 50px); transform: scaleX(1); }
+            26%  { transform: scaleX(-1); }
+            50%  { top: calc(100% - 50px); left: calc(100% - 50px); transform: scaleX(-1); }
+            75%  { top: calc(100% - 50px); left: 10px; transform: scaleX(-1); }
+            76%  { transform: scaleX(1); }
+            100% { top: 10px; left: 10px; transform: scaleX(1); }
+        }
+
+        /* ĐỊNH DẠNG CÁC PHẦN TRONG FORM */
+        .logo-circle { width: 120px; height: 120px; margin-bottom: 25px; border: 1px solid #000; border-radius: 50%; overflow: hidden; }
+        .main-logo { width: 100%; height: 100%; object-fit: cover; }
+
+        .btn-header {
+            width: 100%;
+            padding: 15px;
+            border: 1px dashed #000;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 16px;
+            background: #fdfdfd;
+        }
+        
+        .pixel-input { 
+            width: 100%; 
+            max-width: 400px; /* Giới hạn độ rộng input cho đẹp */
+            padding: 15px; 
+            margin-bottom: 15px; 
+            border: 1px solid #000; 
+            box-sizing: border-box; 
+            outline: none; 
+            font-size: 15px; 
+        }
+
+        .btn-reg { 
+            width: 100%; 
+            max-width: 400px;
+            padding: 18px; 
+            border: 1px solid #000; 
+            box-shadow: 4px 4px 0px #000; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-align: center; 
+            background: var(--primary-color); 
+            color: white;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: 0.1s;
+        }
+        .btn-reg:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+
+        .login-link { margin-top: 20px; color: #385723; text-decoration: none; font-size: 14px; font-weight: bold; }
+
+        /* VIDEO ẨN ĐỂ PHÁT NHẠC */
+        #myVideo { display: none; }
+        #autoplay-fix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <!-- Click bất cứ đâu để bật nhạc -->
+    <div id="autoplay-fix" onclick="startEverything()"></div>
+
+    <div class="auth-page">
+        <!-- BÊN TRÁI: FORM ĐĂNG KÝ (50%) -->
+        <div class="form-side">
+            <div class="logo-circle">
+                <img src="logo.png" alt="Logo" class="main-logo">
+            </div>
+            
+            <div class="btn-header">ĐĂNG KÝ THÀNH VIÊN</div>
+            
+            <input type="text" id="r-user" class="pixel-input" placeholder="Họ và tên">
+            <input type="text" id="r-phone" class="pixel-input" placeholder="Số điện thoại">
+            <input type="text" id="r-address" class="pixel-input" placeholder="Địa chỉ nhận hàng">
+            <input type="password" id="r-pass" class="pixel-input" placeholder="Mật khẩu">
+            
+            <button onclick="register()" class="btn-reg">Tạo tài khoản</button>
+            <a href="login.html" class="login-link">Đã có tài khoản? Đăng nhập ngay</a>
+        </div>
+
+        <!-- BÊN PHẢI: ẢNH MỞ RỘNG HẾT CỠ (50%) -->
+        <div class="video-side">
+            <!-- Con thỏ chạy quanh mép bên phải -->
+            <div class="pixel-rabbit">🐇</div>
+            
+            <!-- Ảnh MX1.png mở rộng lấp đầy không gian -->
+            <img src="mx1.png" alt="Decoration" class="side-img">
+
+            <!-- Video lấy tiếng từ MV1.mp4 -->
+            <video id="myVideo" loop playsinline muted>
+                <source src="mv1.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <script>
+        var video = document.getElementById("myVideo");
+        var fixOverlay = document.getElementById("autoplay-fix");
+
+        function startEverything() {
+            video.muted = false;
+            video.volume = 1.0;
+            video.play();
+            fixOverlay.style.display = "none";
+        }
+
+        window.addEventListener('load', function() {
+            video.play().catch(e => console.log("Chờ click để phát nhạc..."));
+        });
+
+        function register() {
+            const user = document.getElementById('r-user').value;
+            const phone = document.getElementById('r-phone').value;
+            const pass = document.getElementById('r-pass').value;
+            if(!phone || !pass) return alert("Vui lòng nhập đủ thông tin!");
+            localStorage.setItem(phone, JSON.stringify({user, pass}));
+            alert("Đăng ký thành công!");
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
